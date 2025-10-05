@@ -14,10 +14,10 @@ A_minus_B
 D <- diag(c(4, 1, 2, 3))
 D
 
-# 5x5 matrix
-M <- cbind(
-  c(3, 2, 2, 2, 2),     
-  diag(3, 5)[, -1]      
+# Custom 5x5 matrix using only cbind and diag
+M <- rbind(
+  c(3, 1, 1, 1, 1),        # first row
+  cbind(2, diag(3, 4))     # rows 2-5: first column 2, then 4x4 diagonal of 3s
 )
 
 M
