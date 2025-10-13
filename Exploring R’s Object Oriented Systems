@@ -1,0 +1,54 @@
+
+data("mtcars")
+
+head(mtcars)
+str(mtcars)
+
+print(mtcars)  
+
+summary(mtcars)
+
+plot(mtcars$wt, mtcars$mpg, 
+     main = "MPG vs Weight",
+     xlab = "Weight (1000 lbs)",
+     ylab = "Miles per Gallon",
+     pch = 19, col = "steelblue")
+
+methods(print)
+methods(summary)  
+
+#S3
+s3_obj <- list(name = "Myself", age = 29, GPA = 3.5)
+class(s3_obj) <- "student_s3"
+
+print.student_s3 <- function(obj) {
+  cat("S3 Student Info:\n")
+  cat("Name:", obj$name, "\n")
+  cat("Age:", obj$age, "\n")
+  cat("GPA:", obj$GPA, "\n")
+}
+
+print(s3_obj)
+
+# S4
+setClass(
+  "student_s4",
+  slots = c(name = "character", age = "numeric", GPA = "numeric")
+)
+
+
+s4_obj <- new("student_s4", name = "Myself", age = 29, GPA = 3.5)
+
+setMethod(
+  "show",
+  "student_s4",
+  function(object) {
+    cat("S4 Student Info:\n")
+    cat("Name:", object@name, "\n")
+    cat("Age:", object@age, "\n")
+    cat("GPA:", object@GPA, "\n")
+  }
+)
+
+
+s4_obj 
