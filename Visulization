@@ -1,0 +1,48 @@
+test_scores <- read.csv("CASchools.csv", stringsAsFactors = FALSE)
+
+
+test_scores$computer <- as.numeric(gsub("[^0-9.]", "", test_scores$computer))
+test_scores$math     <- as.numeric(gsub("[^0-9.]", "", test_scores$math))
+
+test_scores <- test_scores[!is.na(test_scores$computer) & !is.na(test_scores$math), ]
+
+head(test_scores)
+
+# Base R scatter plot
+plot(test_scores$computer, test_scores$math,
+     main = "Base: Computer vs. Math Scores",
+     xlab = "Computer",
+     ylab = "Math Scores")
+
+# Histogram of math scores
+hist(test_scores$math,
+     main = "Base: Distribution of Math Scores",
+     xlab = "Math Scores")
+
+library(lattice)
+
+xyplot(math ~ computer | factor(district),
+       data = test_scores,
+       main = "Lattice: Math vs. Computer by District")
+
+# Boxplot by district
+bwplot(math ~ factor(district),
+       data = test_scores,
+       main = "Lattice: Math Scores by District")
+
+library(ggplot2)
+
+ggplot(test_scores, aes(x = computer, y = math, color = factor(district))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "ggplot2: Math vs. Computer with Trend by District",
+       x = "Computer",
+       y = "Math Scores",
+       color = "District")
+
+# Histogram of math scores faceted by district
+ggplot(test_scores, aes(math)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Math Scores",
+       x = "Math Scores",
+       y = "Count")
