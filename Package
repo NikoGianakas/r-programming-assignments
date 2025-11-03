@@ -1,0 +1,43 @@
+# Load devtools
+library(devtools)
+
+# 1. Create the package skeleton
+create("Friedman")
+
+# 2. Set up DESCRIPTION file
+desc_file <- file.path("Friedman", "DESCRIPTION")
+writeLines(c(
+  "Package: Friedman",
+  "Title: Simple Data Exploration Tools",
+  "Version: 0.0.0.9000",
+  "Authors@R: person(\"Niko\", \"Gianakas\", email=\"niko@example.com\", role=c(\"aut\",\"cre\"))",
+  "Description: Provides simple functions for quick exploration of data frames in R.",
+  "Depends: R (>= 3.1.2)",
+  "Imports: ggplot2",
+  "License: CC0",
+  "LazyData: true"
+), desc_file)
+
+# 3. Create R/ folder if it does not exist
+r_folder <- file.path("Friedman", "R")
+if(!dir.exists(r_folder)) dir.create(r_folder)
+
+# 4. Add functions
+writeLines(
+  'summarize_data <- function(df) {\n  summary(df)\n}', 
+  file.path(r_folder, "summarize.R")
+)
+
+writeLines(
+  'head_tail <- function(df, n = 5) {\n  rbind(head(df, n), tail(df, n))\n}', 
+  file.path(r_folder, "headtail.R")
+)
+
+writeLines(1
+  'quick_plot <- function(df, x, y) {\n  ggplot2::ggplot(df, ggplot2::aes(x = .data[[x]], y = .data[[y]])) +\n    ggplot2::geom_point() +\n    ggplot2::labs(title = paste("Scatter plot of", x, "vs", y))\n}', 
+  file.path(r_folder, "quickplot.R")
+)
+
+# 5. Check and build the package
+check("Friedman")
+build("Friedman")
