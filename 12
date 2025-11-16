@@ -1,0 +1,41 @@
+---
+title: "Assignment 12"
+author: "Niko Gianakas"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Introduction
+
+R Markdown is a powerful tool for combining text, code, and output in a single document. 
+It allows you to write narrative content, include calculations, and generate plots without switching between multiple files. 
+This makes reports reproducible, shareable, and dynamic.
+
+# Narrative Paragraph
+
+One of the things I enjoy about R Markdown is that it blends prose and computation seamlessly. 
+For example, I can explain an analysis and immediately show the code that performs it. 
+This makes it ideal for tutorials, research reports, and project documentation.
+
+# Math in R Markdown
+
+You can include **inline math** like this: $\alpha + \beta = \gamma$, or a **displayed equation**:
+
+$$
+E = mc^2
+$$
+
+R Markdown uses LaTeX syntax for mathematical expressions, which renders beautifully in the final document.
+
+# Code Chunks
+
+## Load Libraries and Dataset
+
+```{r setup, message=FALSE, warning=FALSE}
+# Load libraries
+library(ggplot2)
+library(datasets)
+
+# Load a dataset
+data(mtcars)
+head(mtcars)
